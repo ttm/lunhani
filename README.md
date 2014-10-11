@@ -20,3 +20,6 @@ duas anteriores.
 Lembrança escolhida: quando Lunhani começou a fuçar no vivace
 e soltar sobre coffeescript, inesperado e até hoje
 aproveitamos estes interesses em comum no lm.
+
+A versao inicial da musica pode ser escutaca clicando no wav acima ou
+no soundcloud: https://soundcloud.com/le-poste-tche/lunhani
