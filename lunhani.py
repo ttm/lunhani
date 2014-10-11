@@ -163,7 +163,8 @@ padrao=   [(i,.5) for i in [0,0,-1,0]]
 padrao1_= [(i,.5) for i in [0,4,7,12]]
 padrao2_= [(i,.5) for i in [0,-5,-9,-12]]
 padrao3__=[(i,.5) for i in [-9,-5,-3,-1]]
-padraoF=  [(i,.5) for i in [-12]]
+#padraoF=  [(i,.5) for i in [-12]]
+padraoF=  [(-12,.75),(-12,.25),(-12,.75),(-12-5,.25),(-12-12,2)]
 pp_+=padrao1+padrao2+padrao3+padrao5+padrao5b+padrao4+padrao3_+padrao+padrao1_+padrao2_+padrao3__+padraoF
 
 som_=n.hstack([adsr(v(f=f0*2**(pi[0]/12.),d=pi[1],tab=Q_i)) for pi in pp_])
@@ -176,6 +177,175 @@ som=n.hstack((som,som_))
 s=n.hstack((s__,   n.hstack((  s_,n.zeros(len(som)-len(s_))   ))+som ))
 ###s= n.hstack((  s_,n.zeros(len(som)-len(s_))   ))+som 
 
+s=((s-s.min())/(s.max()-s.min()))*2.-1.
+orig=n.copy(s)
+s = n.int16(s * float(2**15-1))
+w.write("lunhaniAlpha.wav",f_a, s) # escrita do som
+
+import os, random
+palavras=["lunhani","javascript","vivace","coffescript","cravelho","cravelhoooooo","craveeeeeeelho","craaaaaaaaavelho","craaaaaaaaavvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvkkkkkkkkkkklllllllllllllllhhhhhhhhhhhhhhtttttttttttpbsadoijasdfoijsaf iajsdfoasijdfasdiofjolvelhovelhooooooooooooooooooadsiajisdasdyyyyyyo yo yo yooooooooooooo"]
+vozes="f3,f2,f1,f5,m5,m1,m3".split(",")
+for palavra in palavras:
+    os.system("espeak -vpt-pt+%s -w%s.wav '%s'"%(random.sample(vozes,1)[0],palavra[:20],palavra))
+ff=w.read("javascript.wav")[1]
+ff_=n.fft.fft(ff)
+s=ff2=n.fft.ifft( n.hstack((ff_,n.zeros(len(ff_)) ))  ).real
+js=((s-s.min())/(s.max()-s.min()))*2.-1.
+
+ff=w.read("lunhaniFoo.wav")[1]
+ff_=n.fft.fft(ff)
+s=ff2=n.fft.ifft( n.hstack((ff_,n.zeros(len(ff_)) ))  ).real
+lh=((s-s.min())/(s.max()-s.min()))*2.-1.
+
+ff=w.read("vivace.wav")[1]
+ff_=n.fft.fft(ff)
+s=ff2=n.fft.ifft( n.hstack((ff_,n.zeros(len(ff_)) ))  ).real
+viv=((s-s.min())/(s.max()-s.min()))*2.-1.
+
+ff=w.read("coffeescript.wav")[1]
+ff_=n.fft.fft(ff)
+s=ff2=n.fft.ifft( n.hstack((ff_,n.zeros(len(ff_)) ))  ).real
+coff=((s-s.min())/(s.max()-s.min()))*2.-1.
+
+ff=w.read("cravelho.wav")[1]
+ff_=n.fft.fft(ff)
+s=ff2=n.fft.ifft( n.hstack((ff_,n.zeros(len(ff_)) ))  ).real
+crav=((s-s.min())/(s.max()-s.min()))*2.-1.
+
+ff=w.read("craaaaaaaaavvvvvvvvv.wav")[1]; ff_=n.fft.fft(ff)
+s=ff2=n.fft.ifft( n.hstack((ff_,n.zeros(len(ff_)) ))  ).real
+crav_=((s-s.min())/(s.max()-s.min()))*2.-1.
+
+ff=w.read("cravelhoooooo.wav")[1]; ff_=n.fft.fft(ff)
+s=ff2=n.fft.ifft( n.hstack((ff_,n.zeros(len(ff_)) ))  ).real
+cravo=((s-s.min())/(s.max()-s.min()))*2.-1.
+
+ff=w.read("craveeeeeeelho.wav")[1]; ff_=n.fft.fft(ff)
+s=ff2=n.fft.ifft( n.hstack((ff_,n.zeros(len(ff_)) ))  ).real
+crave=((s-s.min())/(s.max()-s.min()))*2.-1.
+
+ff=w.read("craaaaaaaaavvvvvvvvv.wav")[1]; ff_=n.fft.fft(ff)
+s=ff2=n.fft.ifft( n.hstack((ff_,n.zeros(len(ff_)) ))  ).real
+crava=((s-s.min())/(s.max()-s.min()))*2.-1.
+
+orig[10:10+len(viv)]+=viv
+orig[100:100+len(coff)]+=coff
+orig[1000:1000+len(lh)]+=lh
+orig[10000:10000+len(js)]+=js
+T=44100*0.5
+
+TT=T*4;TK=coff
+orig[TT:TT+len(TK)]+=TK
+TT=T*12;TK=lh
+orig[TT:TT+len(TK)]+=TK
+TT=T*16;TK=viv
+orig[TT:TT+len(TK)]+=TK
+TT=T*20;TK=js
+orig[TT:TT+len(TK)]+=TK
+TT=T*21;TK=coff
+orig[TT:TT+len(TK)]+=TK
+TT=T*23;TK=lh
+orig[TT:TT+len(TK)]+=TK
+TT=T*24;TK=viv
+orig[TT:TT+len(TK)]+=TK
+TT=T*24.75;TK=js
+orig[TT:TT+len(TK)]+=TK
+TT=T*25;TK=coff
+orig[TT:TT+len(TK)]+=TK
+
+
+TT=T*28;TK=crav
+orig[TT:TT+len(TK)]+=TK
+TT=T*28.5;TK=crav
+orig[TT:TT+len(TK)]+=TK
+TT=T*29;TK=crav[::-1]
+orig[TT:TT+len(TK)]+=TK
+TT=T*30;TK=crav[::-1]
+orig[TT:TT+len(TK)]+=TK
+TT=T*31;TK=crav
+orig[TT:TT+len(TK)]+=TK
+
+
+TT=T*36;TK=crave
+orig[TT:TT+len(TK)]+=TK
+TT=T*36.5;TK=crave
+orig[TT:TT+len(TK)]+=TK
+TT=T*37;TK=crav[::-1][:len(crav)/2]
+orig[TT:TT+len(TK)]+=TK
+TT=T*38;TK=crav[::-1][len(crav)/2:]
+orig[TT:TT+len(TK)]+=TK
+TT=T*38.5;TK=crava[::-1]
+orig[TT:TT+len(TK)]+=TK
+TT=T*39;TK=cravo+cravo[::-1]
+orig[TT:TT+len(TK)]+=TK
+
+
+TT=T*40;TK=crav[len(crav)/2:]
+orig[TT:TT+len(TK)]+=TK
+TT=T*41;TK=crav[:len(crav)/2]
+orig[TT:TT+len(TK)]+=TK
+TT=T*42;TK=crav[::-1][:len(crav)/2]
+orig[TT:TT+len(TK)]+=TK
+TT=T*43;TK=crav[::-1][len(crav)/2:]
+orig[TT:TT+len(TK)]+=TK
+
+TT=T*40;TK=crave
+orig[TT:TT+len(TK)]+=TK
+TT=T*41;TK=crava
+orig[TT:TT+len(TK)]+=TK
+TT=T*42;TK=cravo[::-1]
+orig[TT:TT+len(TK)]+=TK
+TT=T*43;TK=crav_[::-1]
+orig[TT:TT+len(TK)]+=TK
+
+
+
+TT=T*48;TK=crav[len(crav)/2:]
+orig[TT:TT+len(TK)]+=TK
+TT=T*49;TK=crav[:len(crav)/2]
+orig[TT:TT+len(TK)]+=TK
+TT=T*50;TK=crav[::-1][:len(crav)/2]
+orig[TT:TT+len(TK)]+=TK
+TT=T*51;TK=crav[::-1][len(crav)/2:]
+orig[TT:TT+len(TK)]+=TK
+
+TT=T*52;TK=crav_
+orig[TT:TT+len(TK)]+=TK
+TT=T*56;TK=crav_[::-1]
+orig[TT:TT+len(TK)]+=TK
+
+
+TT=T*4;TK=coff[::-1]
+TT+=T*80
+orig[TT:TT+len(TK)]+=TK
+TT=T*12;TK=lh[::-1]
+TT+=T*80
+orig[TT:TT+len(TK)]+=TK
+TT=T*16;TK=viv[::-1]
+TT+=T*80
+orig[TT:TT+len(TK)]+=TK
+TT=T*20;TK=js[::-1]
+TT+=T*80
+orig[TT:TT+len(TK)]+=TK
+TT=T*21;TK=coff
+TT+=T*80
+orig[TT:TT+len(TK)]+=TK
+TT=T*23;TK=lh[::-1]
+TT+=T*80
+orig[TT:TT+len(TK)]+=TK
+TT=T*24;TK=viv
+TT+=T*80
+orig[TT:TT+len(TK)]+=TK
+TT=T*24.75;TK=js[::-1]
+TT+=T*80
+orig[TT:TT+len(TK)]+=TK
+TT=T*25;TK=coff[::-1]
+TT+=T*80
+orig[TT:TT+len(TK)]+=TK
+TT=T*25.3;TK=coff
+TT+=T*80
+orig[TT:TT+len(TK)]+=TK
+s=orig
 s=((s-s.min())/(s.max()-s.min()))*2.-1.
 s = n.int16(s * float(2**15-1))
 w.write("lunhani.wav",f_a, s) # escrita do som

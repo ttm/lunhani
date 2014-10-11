@@ -16,3 +16,7 @@ Num terceiro momento,
 e na eventualidade de lembranças a mais,
 pode ser feita uma música com todas as lembranças ou mix das
 duas anteriores.
+
+Lembrança escolhida: quando Lunhani começou a fuçar no vivace
+e soltar sobre coffeescript, achei bem inesperado e até hoje
+aproveitamos estes interesses em comum.
